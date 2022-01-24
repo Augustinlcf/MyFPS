@@ -7,7 +7,7 @@ public class ParticleDestroy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(this.gameObject,1.5f);
+        Destroy(this.gameObject,1.4f);
     }
 
     // Update is called once per frame

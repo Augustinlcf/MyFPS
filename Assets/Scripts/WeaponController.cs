@@ -8,6 +8,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Transform bulletParent;
     private float yawn = 0f;
     private float pitch = 0f;
+    
     // Start is called before the first frame update
     void Start()
     {
