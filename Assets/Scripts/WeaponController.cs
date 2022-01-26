@@ -20,7 +20,6 @@ public class WeaponController : MonoBehaviour
     {
         Deplacer();
         Tourner();
-        //faireRayCast();
         Tirer();
     }
 
@@ -42,26 +41,6 @@ public class WeaponController : MonoBehaviour
         pitch += Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, -90f, 90f);
         transform.eulerAngles = new Vector3(-pitch, yawn, 0f);
-    }
-
-    private void faireRayCast()
-    {
-        RaycastHit hit;  //parametre distance de l'obstacle
-        bool foundAwall = Physics.Raycast(
-            new Ray(
-                transform.position, 
-                transform.forward),
-            out hit,
-            Mathf.Infinity,
-            LayerMask.GetMask("Default"));
-    
-        
-        Debug.DrawRay( // dessine un rayon vers la direction indiquée
-            transform.position,
-            transform.forward * 1000f,
-            foundAwall ? Color.green : Color.red);
-
-        
     }
 
     private void Tirer()

@@ -15,7 +15,7 @@ public class InvisibleWallSpawner : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.gameObject.name == "weapon" && isSpawn == false)
+        if (other.gameObject.layer == 6 && isSpawn == false)
         {
             for(int i=0; i<numberOfTargets; i++)
             {
