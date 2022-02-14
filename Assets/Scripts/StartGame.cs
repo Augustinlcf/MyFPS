@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
@@ -8,11 +10,18 @@ public class StartGame : MonoBehaviour
     [SerializeField] private GameObject sniper;
     [SerializeField] private GameObject mp5;
     [SerializeField] private GameObject shotgun;
+    [SerializeField] private Canvas canvas;
     private GameObject weaponSelected;
+
+    private void Start()
+    {
+        
+    }
     
     public void Instantiate_weapon()
     {
-        Instantiate(weaponSelected,spawn.transform);
+        canvas.enabled = false;
+        Instantiate(weaponSelected,spawn.position,transform.rotation);
     }
     
     public void Select_Sniper()
