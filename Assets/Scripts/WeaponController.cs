@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private Transform bulletParent;
+    
     private float yawn = 0f;
     private float pitch = 0f;
-    
+    [SerializeField] private GameObject sniper;
+    [SerializeField] private GameObject mp5;
+    [SerializeField] private GameObject shotgun;
+    private GameObject weaponSelected;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,18 +22,17 @@ public class WeaponController : MonoBehaviour
     {
         Deplacer();
         Tourner();
-        Tirer();
     }
 
     private void Deplacer()
     {
         
         //changer translation
-        Vector3 deltaPosition = (transform.right * Input.GetAxis("Horizontal") +   //diriger avec les fleches directionnelles
-                                 transform.forward * Input.GetAxis("Vertical"))
+        Vector3 deltaPosition = (weaponSelected.transform.right * Input.GetAxis("Horizontal") +   //diriger avec les fleches directionnelles
+                                 weaponSelected.transform.forward * Input.GetAxis("Vertical"))
                                 *Time.deltaTime*30f;
         deltaPosition.y = 0f;  // pour ne pas monter ou descendre
-        transform.position += deltaPosition;
+        weaponSelected.transform.position += deltaPosition;
     }
 
     private void Tourner()
@@ -40,18 +41,20 @@ public class WeaponController : MonoBehaviour
         yawn += Input.GetAxis("Mouse X");
         pitch += Input.GetAxis("Mouse Y");
         pitch = Mathf.Clamp(pitch, -90f, 90f);
-        transform.eulerAngles = new Vector3(-pitch, yawn, 0f);
+        weaponSelected.transform.eulerAngles = new Vector3(-pitch, yawn, 0f);
+    }
+    
+    public void Select_Sniper()
+    {
+        weaponSelected = sniper;
+    }
+    public void Select_Mp5()
+    {
+        weaponSelected = mp5;
+    }
+    public void Select_Shotgun()
+    {
+        weaponSelected = shotgun;
     }
 
-    private void Tirer()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            var bulletBody = Instantiate(bullet,
-            transform.position + transform.forward*1.7f,
-            transform.rotation,
-            bulletParent);
-            bulletBody.GetComponent<Rigidbody>().AddForce(transform.forward*3000);
-        }
-    }
 }
