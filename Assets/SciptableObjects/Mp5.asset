@@ -20,3 +20,6 @@ MonoBehaviour:
   nbOfBulletsInMagazine: 30
   nbOfBulletsInTotal: 1000
   bulletSpeed: 2000
+  aimingSpeed: 20
+  aimSensitivity: 0.8
+  aimMovementSpeed: 15

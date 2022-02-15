@@ -321,3 +321,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 3933143843967562525, guid: b09492d6050b1a84abe5366ad7f5b058, type: 3}
   bulletParent: {fileID: 0}
+  reticule: {fileID: 0}
+  currentWeapon: {fileID: 345401767747201944}

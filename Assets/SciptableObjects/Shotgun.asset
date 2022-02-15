@@ -19,4 +19,7 @@ MonoBehaviour:
   reloadTime: 3
   nbOfBulletsInMagazine: 96
   nbOfBulletsInTotal: 1000
-  bulletSpeed: 1500
+  bulletSpeed: 3000
+  aimingSpeed: 20
+  aimSensitivity: 1
+  aimMovementSpeed: 15
