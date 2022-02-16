@@ -7,13 +7,16 @@ public class WeaponData : ScriptableObject
 {
     public string weaponName;
     public int bulletDamage;
-    public int rateOfFire;
+    public float rateOfFire;
     public int bulletPerShot;
-    public int reloadTime;
+    public float reloadTime;
     public int nbOfBulletsInMagazine;
     public int nbOfBulletsInTotal;
     public int bulletSpeed;
+    public int hitForce;
     public float aimingSpeed;
     public float aimSensitivity;
     public float aimMovementSpeed;
+    public int fieldOfViewAim;
+
 }

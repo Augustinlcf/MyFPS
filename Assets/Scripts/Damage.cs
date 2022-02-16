@@ -23,7 +23,7 @@ public class Damage : MonoBehaviour
 
     }
 
-    private void Downgrades()
+    public void Downgrades()
     {
         MeshRenderer[] mfs = gameObject.GetComponentsInChildren<MeshRenderer>();
         

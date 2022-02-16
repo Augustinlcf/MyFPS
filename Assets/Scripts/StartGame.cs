@@ -15,6 +15,8 @@ public class StartGame : MonoBehaviour
     [SerializeField] private WeaponData shotgunData;
     [SerializeField] private Canvas canvasMenu;
     [SerializeField] private Canvas canvasOverlay;
+    [SerializeField] private Canvas canvasSniper;
+    
     private GameObject weaponSelected;
     public static WeaponData weaponData;
 
@@ -22,11 +24,13 @@ public class StartGame : MonoBehaviour
     {
         canvasMenu.enabled = true;
         canvasOverlay.enabled = false;
+        canvasSniper.enabled = false;
     }
     
     public void Instantiate_weapon()
     {
         canvasMenu.enabled = false;
+        canvasSniper.enabled = true;
         canvasOverlay.enabled = true;
         Instantiate(weaponSelected,spawn.position,transform.rotation);
     }

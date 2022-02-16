@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.166, y: 0.194, z: -0.532}
+  m_LocalPosition: {x: -0.166, y: 0.181, z: -0.532}
   m_LocalScale: {x: 0.04779899, y: 0.32798374, z: 1.4577703}
   m_Children: []
   m_Father: {fileID: 3283647310683984518}
@@ -136,13 +136,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3847511463807368128}
-  m_LocalRotation: {x: 0.033152126, y: -0, z: -0, w: 0.9994503}
-  m_LocalPosition: {x: -0.166, y: 0.194, z: -0.532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.166, y: 0.181, z: -0.532}
   m_LocalScale: {x: 0.04779899, y: 0.32798374, z: 1.4577703}
   m_Children: []
   m_Father: {fileID: 3283647310683984518}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 3.8, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4456565511930272413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327,6 +327,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &4549791469831207004
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046118816871963411}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 990a1ddc1fcb4e445a3c8b4d06e013e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1233398466489197898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,7 +358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8249402fa39c504aa9b258d78c0d967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 30
 --- !u!114 &9050341750077775349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,4 +372,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 3933143843967562525, guid: b09492d6050b1a84abe5366ad7f5b058, type: 3}
   bulletParent: {fileID: 0}
+  animator: {fileID: 4549791469831207004}
   currentWeapon: {fileID: 8046118816871963411}

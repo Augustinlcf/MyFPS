@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Shotgun
   bulletDamage: 8
-  rateOfFire: 1
+  rateOfFire: 0.4
   bulletPerShot: 12
   reloadTime: 3
   nbOfBulletsInMagazine: 96
   nbOfBulletsInTotal: 1000
   bulletSpeed: 4000
+  hitForce: 100
   aimingSpeed: 20
   aimSensitivity: 1
   aimMovementSpeed: 15
+  fieldOfViewAim: 0
