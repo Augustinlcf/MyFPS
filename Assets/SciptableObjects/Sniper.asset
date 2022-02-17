@@ -15,13 +15,13 @@ MonoBehaviour:
   weaponName: Sniper
   bulletDamage: 100
   rateOfFire: 1
-  bulletPerShot: 1
   reloadTime: 3
   nbOfBulletsInMagazine: 6
   nbOfBulletsInTotal: 100
   bulletSpeed: 10000
-  hitForce: 400
+  hitForce: 3000
   aimingSpeed: 20
   aimSensitivity: 0.3
   aimMovementSpeed: 8
   fieldOfViewAim: 10
+  recoilSpeed: 0

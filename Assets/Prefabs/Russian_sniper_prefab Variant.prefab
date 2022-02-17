@@ -373,4 +373,5 @@ MonoBehaviour:
   bullet: {fileID: 3933143843967562525, guid: b09492d6050b1a84abe5366ad7f5b058, type: 3}
   bulletParent: {fileID: 0}
   animator: {fileID: 4549791469831207004}
+  impactBullet: {fileID: 12253928509609966, guid: e57372e2c5a9aed4e8bbe602646bc7aa, type: 3}
   currentWeapon: {fileID: 8046118816871963411}

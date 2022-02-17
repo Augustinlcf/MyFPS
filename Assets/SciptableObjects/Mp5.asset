@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Mp5
   bulletDamage: 10
-  rateOfFire: 0.1
-  bulletPerShot: 1
+  rateOfFire: 0.15
   reloadTime: 3
   nbOfBulletsInMagazine: 30
   nbOfBulletsInTotal: 1000
   bulletSpeed: 2000
-  hitForce: 20
+  hitForce: 1000
   aimingSpeed: 20
   aimSensitivity: 0.6
   aimMovementSpeed: 15
   fieldOfViewAim: 45
+  recoilSpeed: 0.3

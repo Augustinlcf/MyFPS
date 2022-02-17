@@ -20,6 +20,11 @@ public class StartGame : MonoBehaviour
     private GameObject weaponSelected;
     public static WeaponData weaponData;
 
+    private void Awake()
+    {
+        weaponData = sniperData;
+    }
+
     private void Start()
     {
         canvasMenu.enabled = true;

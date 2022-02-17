@@ -15,13 +15,13 @@ MonoBehaviour:
   weaponName: Shotgun
   bulletDamage: 8
   rateOfFire: 0.4
-  bulletPerShot: 12
   reloadTime: 3
-  nbOfBulletsInMagazine: 96
+  nbOfBulletsInMagazine: 8
   nbOfBulletsInTotal: 1000
   bulletSpeed: 4000
-  hitForce: 100
+  hitForce: 1000
   aimingSpeed: 20
   aimSensitivity: 1
   aimMovementSpeed: 15
   fieldOfViewAim: 0
+  recoilSpeed: 0
