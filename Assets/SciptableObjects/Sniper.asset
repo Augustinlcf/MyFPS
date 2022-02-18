@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Sniper
   bulletDamage: 100
-  rateOfFire: 1
+  rateOfFire: 0.8
   reloadTime: 3
   nbOfBulletsInMagazine: 6
   nbOfBulletsInTotal: 100
+  bulletPerShot: 1
   bulletSpeed: 10000
   hitForce: 3000
   aimingSpeed: 20

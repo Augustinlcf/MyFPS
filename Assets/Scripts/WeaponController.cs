@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+//using Random = System.Random;
 
 public class WeaponController : MonoBehaviour
 {
@@ -9,12 +13,13 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Transform bulletParent;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject impactBullet;
-    [SerializeField] private float recoilCoefficient;
-    private float recoilValue;
     public GameObject currentWeapon;
     private Transform currentCameraPosition;
     private Transform aimCameraPosition;
     private Transform notAimCameraPosition;
+    private Transform weaponHolder;
+    
+    // WEAPON STATS
     private float aimingSpeed;
     private float bulletSpeed;
     private float aimSensitivity;
@@ -22,9 +27,10 @@ public class WeaponController : MonoBehaviour
     private int fieldOfViewAim;
     private float normalSensitivity;
     private float normalMovementSpeed;
-    private float recoilSpeed;
     public static int currentBulletinMagazine=0;
     public static int nbOfBulletInTotal=0;
+    private int nbOfBulletPerShot;
+    private float bulletDispersion;
     private int hitForce;
     private float rateOfFire;
     private float nextFire;
@@ -40,38 +46,46 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
+        // INITIALISATION
         aimingSpeed = StartGame.weaponData.aimingSpeed;
         bulletSpeed = StartGame.weaponData.bulletSpeed;
         aimSensitivity = StartGame.weaponData.aimSensitivity;
         aimMovementSpeed = StartGame.weaponData.aimMovementSpeed;
-        recoilSpeed = StartGame.weaponData.recoilSpeed;
+        nbOfBulletPerShot = StartGame.weaponData.bulletPerShot;
+        bulletDispersion = StartGame.weaponData.bulletDispersion;
         fieldOfViewAim = StartGame.weaponData.fieldOfViewAim;
         rateOfFire = StartGame.weaponData.rateOfFire;
         hitForce = StartGame.weaponData.hitForce;
         currentBulletinMagazine = StartGame.weaponData.nbOfBulletsInMagazine;
         nbOfBulletInTotal = StartGame.weaponData.nbOfBulletsInTotal;
-
-        recoilValue = 0;
+        
+        // RECOIL
         recoilScript = transform.Find("Main Camera").GetComponent<Recoil>();
         
+        // FIELD OF VIEW
         fpsCam = GetComponentInChildren<Camera>();
+        
+        // MASK
         layerMask = LayerMask.GetMask("Target","Default");
-
+        
+        // SENSITIVITY
         normalSensitivity = PlayerController.sensiMouse;
         normalMovementSpeed = PlayerController.playerSpeed;
-
+        
+        // DYNAMIC CROSSHAIR 
         _gameObject = GameObject.Find("GameObject");
         crosshair = _gameObject.GetComponent<Reticule>();
         
+        // CROSSHAIR / SCOPE
         reticule = GameObject.Find("Reticule");
         scopeOverlay = GameObject.Find("CanvasSniperOverlay");
         
+        // CAMERA POSITION
         smrs = currentWeapon.GetComponentsInChildren<SkinnedMeshRenderer>();
         cameraMain = currentWeapon.transform.Find("Main Camera").gameObject;
         currentCameraPosition = currentWeapon.transform.Find("Main Camera");
-        aimCameraPosition = currentWeapon.transform.Find("AimTransform");
-        notAimCameraPosition = currentWeapon.transform.Find("StopAimTransform");
-
+        aimCameraPosition = currentWeapon.transform.Find("WeaponHolder/AimTransform");
+        notAimCameraPosition = currentWeapon.transform.Find("WeaponHolder/StopAimTransform");
     }
 
     void Update()
@@ -87,13 +101,11 @@ public class WeaponController : MonoBehaviour
         {
                 
             case "Sniper":
-                animator.SetBool("isFire",false);
-                animator.SetBool("isFireWhenScoping",false);
+        
                 if (Input.GetMouseButtonDown(0) && Time.time > nextFire && currentBulletinMagazine>0)
                 {
-                    animator.SetBool("isFire",true);
-                    animator.SetBool("isFireWhenScoping",true);
-
+                    recoilScript.RecoilFire();
+                    
                     currentBulletinMagazine--;
                     nextFire = Time.time + rateOfFire;
                     
@@ -128,12 +140,9 @@ public class WeaponController : MonoBehaviour
             
             case "Mp5":
                 animator.SetBool("isFire",false);
-                animator.SetBool("isFireWhenScoping",false);
                 if (Input.GetMouseButton(0) && Time.time > nextFire && currentBulletinMagazine>0)
                 {
                     animator.SetBool("isFire",true);
-                    animator.SetBool("isFireWhenScoping",true);
-                    
                     recoilScript.RecoilFire();
 
                     currentBulletinMagazine--;
@@ -145,7 +154,7 @@ public class WeaponController : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(
                             rayOrigin,
-                            fpsCam.transform.forward + new Vector3(0,recoilValue,0),
+                            fpsCam.transform.forward,
                             out hit,
                             Mathf.Infinity,
                             layerMask))
@@ -163,10 +172,6 @@ public class WeaponController : MonoBehaviour
                             hit.rigidbody.AddForce(-hit.normal * hitForce);
                             hit.collider.gameObject.GetComponent<Damage>().Downgrades();
                         }
-
-                        //recoilValue += recoilCoefficient;
-                        //recoilValue -= Mathf.Lerp(recoilValue, recoilValue-recoilCoefficient, recoilSpeed);
-                        //StartCoroutine(recoilCancel());
                     }
                 }
                 break;
@@ -177,18 +182,26 @@ public class WeaponController : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && Time.time > nextFire && currentBulletinMagazine>0)
                 {
                     animator.SetBool("isFire",true);
+                    recoilScript.RecoilFire();
                     
                     currentBulletinMagazine--;
                     nextFire = Time.time + rateOfFire;
                     
                     crosshair.ActiveDynamicCrosshair();
                     
-                    var bulletBody = Instantiate(
-                        bullet,
-                        transform.position + transform.forward*1.7f,
-                        transform.rotation,
-                        bulletParent);
-                    bulletBody.GetComponent<Rigidbody>().AddForce(transform.forward*bulletSpeed);
+                    weaponHolder = currentWeapon.transform.Find("WeaponHolder");
+                    
+                    for (int i=0; i<nbOfBulletPerShot; i++)
+                    {
+                        Vector3 random = new Vector3(Random.Range(-bulletDispersion,bulletDispersion),Random.Range(-bulletDispersion,bulletDispersion),Random.Range(-bulletDispersion,bulletDispersion));
+                        var bulletBody = Instantiate(
+                            bullet,
+                            weaponHolder.position + weaponHolder.forward*1.4f + weaponHolder.up*0.5f,
+                            weaponHolder.rotation,
+                            bulletParent);
+                        bulletBody.GetComponent<Rigidbody>().AddForce((weaponHolder.forward+random)*bulletSpeed); 
+                    }
+                    
                 }
                 break;
             }
@@ -321,12 +334,6 @@ public class WeaponController : MonoBehaviour
             nbOfBulletInTotal -= nbOfBulletToReload;
             currentBulletinMagazine = StartGame.weaponData.nbOfBulletsInMagazine;
         }
-    }
-
-    IEnumerator recoilCancel()
-    {
-        yield return new WaitForSeconds(recoilSpeed);
-        recoilValue = Mathf.Lerp(recoilValue,0,recoilSpeed);
     }
     
 

@@ -11,7 +11,9 @@ public class WeaponData : ScriptableObject
     public float reloadTime;
     public int nbOfBulletsInMagazine;
     public int nbOfBulletsInTotal;
+    public int bulletPerShot;
     public int bulletSpeed;
+    public float bulletDispersion;
     public int hitForce;
     public float aimingSpeed;
     public float aimSensitivity;

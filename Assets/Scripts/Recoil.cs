@@ -16,9 +16,11 @@ public class Recoil : MonoBehaviour
     //Settings
     [SerializeField] private float snappiness;
     [SerializeField] private float returnSpeed;
+
+    private GameObject weaponHolder;
     void Start()
     {
-        
+        weaponHolder = GameObject.Find("WeaponHolder");
     }
 
   
@@ -27,6 +29,7 @@ public class Recoil : MonoBehaviour
         targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.fixedDeltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
+        weaponHolder.transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
     public void RecoilFire()
