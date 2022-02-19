@@ -15,11 +15,12 @@ public class CameraRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        cameraRotation.transform.LookAt(target);
+        cameraRotation.transform.Translate(Vector3.left * Time.deltaTime*150f );
     }
 
     public void DestroyCamera()
     {
-        Destroy(cameraRotation);
+        cameraRotation.enabled = false;
     }
 }
