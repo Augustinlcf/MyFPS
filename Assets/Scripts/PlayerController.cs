@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,12 +9,21 @@ public class PlayerController : MonoBehaviour
     public static float sensiMouse = 1;
     private float yawn = 0f;
     private float pitch = 0f;
+
+    private GameObject manager;
     
+    // HEALTHBAR
+    public static float health = 100;
+    public static float maxHealth = 100;
 
     // Start is called before the first frame update
     void Start()
     {
+        manager = GameObject.Find("Manager");
+        health = maxHealth;
         Cursor.lockState = CursorLockMode.Locked;  //bloque le curseur sur l'ecran
+        playerSpeed = 30;
+        sensiMouse = 1;
     }
 
     // Update is called once per frame
@@ -42,6 +52,16 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, -90f, 90f);
         transform.eulerAngles = new Vector3(-pitch, yawn, 0f);
     }
+    public void GetDamage(float damage)
+    {
+        if (health >= 0)
+        {
+            health -= damage;
+        }
+        else
+        {
+            manager.GetComponent<Restart>().RestartGame();
+        }
+    }
     
-
 }

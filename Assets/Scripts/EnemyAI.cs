@@ -15,6 +15,8 @@ public class EnemyAI : MonoBehaviour
 
     public Animator animatorAttack;
 
+    [SerializeField] private float damage;
+
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -31,7 +33,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Submachine5_prefab Variant(Clone)").transform;
+        WhatIsThePlayer();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -91,10 +93,8 @@ public class EnemyAI : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            ///Attack code here
             animatorAttack.SetTrigger("Stab Attack");
-            ///End of attack code
-
+            player.GetComponent<PlayerController>().GetDamage(damage);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -124,5 +124,21 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+
+    private void WhatIsThePlayer()
+    {
+        if (StartGame.weaponData.weaponName == "Sniper")
+        {
+            player = GameObject.Find("Russian_sniper_prefab Variant(Clone)").transform;
+        }
+        else if (StartGame.weaponData.weaponName == "Mp5")
+        {
+            player = GameObject.Find("Submachine5_prefab Variant(Clone)").transform;
+        }
+        else if (StartGame.weaponData.weaponName == "Shotgun")
+        {
+            player = GameObject.Find("Shotgun3_prefab Variant(Clone)").transform;
+        }
     }
 }

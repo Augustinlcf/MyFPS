@@ -11,7 +11,12 @@ public class InvisibleWallSpawner : MonoBehaviour
     [SerializeField] private Transform targetParent;
     [SerializeField] private int numberOfTargets = 25;
     private Vector3 _position;
-    [SerializeField] bool isSpawn = false;
+    [SerializeField] bool isSpawn;
+
+    private void Start()
+    {
+        isSpawn = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

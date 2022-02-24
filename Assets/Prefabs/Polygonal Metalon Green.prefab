@@ -1218,12 +1218,13 @@ MonoBehaviour:
     m_Bits: 64
   health: 120
   animatorAttack: {fileID: 95319451835724688}
+  damage: 10
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 8
   timeBetweenAttacks: 2
   projectile: {fileID: 3933143843967562525, guid: b09492d6050b1a84abe5366ad7f5b058, type: 3}
-  sightRange: 25
-  attackRange: 8
+  sightRange: 35
+  attackRange: 9
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!54 &-7836361228621678106

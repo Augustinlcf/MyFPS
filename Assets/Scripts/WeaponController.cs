@@ -23,6 +23,7 @@ public class WeaponController : MonoBehaviour
     // WEAPON STATS
     private float aimingSpeed;
     private float bulletSpeed;
+    private int bulletDamage;
     private float aimSensitivity;
     private float aimMovementSpeed;
     private int fieldOfViewAim;
@@ -53,6 +54,7 @@ public class WeaponController : MonoBehaviour
         // INITIALISATION
         aimingSpeed = StartGame.weaponData.aimingSpeed;
         bulletSpeed = StartGame.weaponData.bulletSpeed;
+        bulletDamage = StartGame.weaponData.bulletDamage;
         aimSensitivity = StartGame.weaponData.aimSensitivity;
         aimMovementSpeed = StartGame.weaponData.aimMovementSpeed;
         nbOfBulletPerShot = StartGame.weaponData.bulletPerShot;
@@ -77,12 +79,14 @@ public class WeaponController : MonoBehaviour
         normalMovementSpeed = PlayerController.playerSpeed;
         
         // DYNAMIC CROSSHAIR 
-        _gameObject = GameObject.Find("GameObject");
+        _gameObject = GameObject.Find("Manager");
         crosshair = _gameObject.GetComponent<Reticule>();
         
         // CROSSHAIR / SCOPE
         reticule = GameObject.Find("Reticule");
         scopeOverlay = GameObject.Find("CanvasSniperOverlay");
+        scopeOverlay.SetActive(false);
+        reticule.SetActive(true);
 
         bulletParent = GameObject.Find("BulletParent");
         
@@ -138,7 +142,7 @@ public class WeaponController : MonoBehaviour
                         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Target"))
                         {
                             hit.rigidbody.AddForce(-hit.normal * hitForce);
-                            hit.collider.gameObject.GetComponent<Damage>().Downgrades();
+                            hit.collider.gameObject.GetComponent<EnemyAI>().TakeDamage(bulletDamage);
                         }
                       
                     }
@@ -178,7 +182,7 @@ public class WeaponController : MonoBehaviour
                         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Target"))
                         {
                             //hit.rigidbody.AddForce(-hit.normal * hitForce);
-                            hit.collider.gameObject.GetComponent<EnemyAI>().TakeDamage(30);
+                            hit.collider.gameObject.GetComponent<EnemyAI>().TakeDamage(bulletDamage);
                         }
                     }
                 }
@@ -342,7 +346,11 @@ public class WeaponController : MonoBehaviour
             currentBulletinMagazine = StartGame.weaponData.nbOfBulletsInMagazine;
         }
     }
+
+    public void DestroyWeapon()
+    {
+        Destroy(gameObject);
+    }
     
 
-  
 }
