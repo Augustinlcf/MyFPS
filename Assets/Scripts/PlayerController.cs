@@ -54,11 +54,12 @@ public class PlayerController : MonoBehaviour
     }
     public void GetDamage(float damage)
     {
-        if (health >= 0)
+        if (health > 0)
         {
             health -= damage;
         }
-        else
+
+        if (health <= 0)
         {
             manager.GetComponent<Restart>().RestartGame();
         }
