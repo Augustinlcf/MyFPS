@@ -11,6 +11,7 @@ public class EnemyAI : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
+    public float maxhealth;
     public float health;
 
     public Animator animatorAttack;
@@ -33,6 +34,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        health = maxhealth;
         WhatIsThePlayer();
         agent = GetComponent<NavMeshAgent>();
     }
@@ -69,7 +71,7 @@ public class EnemyAI : MonoBehaviour
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y+4, transform.position.z + randomZ);
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
@@ -93,7 +95,7 @@ public class EnemyAI : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            animatorAttack.SetTrigger("Stab Attack");
+            animatorAttack.SetTrigger("Attack");
             player.GetComponent<PlayerController>().GetDamage(damage);
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -107,15 +109,21 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        animatorAttack.SetTrigger("Take Damage");
-        health -= damage;
-
-        if (health <= 0) DestroyEnemy();
+        if (health>0)
+        {
+            animatorAttack.SetTrigger("Take Damage");
+            health -= damage;
+        }
+        if (health <= 0)
+        {
+            animatorAttack.SetTrigger("Dead");
+            DestroyEnemy(1.3f);
+        }
     }
 
-    private void DestroyEnemy()
+    private void DestroyEnemy(float delay)
     {
-        Destroy(gameObject);
+        Destroy(gameObject, delay);
     }
 
     private void OnDrawGizmosSelected()
@@ -141,4 +149,5 @@ public class EnemyAI : MonoBehaviour
             player = GameObject.Find("Shotgun3_prefab Variant(Clone)").transform;
         }
     }
+
 }

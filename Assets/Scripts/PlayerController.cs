@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     private GameObject manager;
     
     // HEALTHBAR
-    public static float health = 100;
-    public static float maxHealth = 100;
+    public static float health;
+    public static float maxHealth = 300;
 
     // Start is called before the first frame update
     void Start()

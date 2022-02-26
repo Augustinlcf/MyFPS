@@ -7,8 +7,10 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform pos1;
     [SerializeField] private Transform pos2;
     [SerializeField] private Transform pos3;
+    [SerializeField] private Transform pos4;
 
-    [SerializeField] private GameObject objectToBeSpawn;
+    [SerializeField] private GameObject ennemyToBeSpawn1;
+    [SerializeField] private GameObject ennemyToBeSpawn2;
     [SerializeField] private Transform targetParent;
     // Start is called before the first frame update
     void Start()
@@ -29,8 +31,9 @@ public class Spawner : MonoBehaviour
     
     private void SpawnWithDelay()
     {
-        Instantiate(objectToBeSpawn, pos1.position, Quaternion.identity,targetParent);
-        Instantiate(objectToBeSpawn, pos2.position, Quaternion.identity,targetParent);
-        Instantiate(objectToBeSpawn, pos3.position, Quaternion.identity,targetParent);
+        Instantiate(ennemyToBeSpawn1, pos1.position, Quaternion.identity,targetParent);
+        Instantiate(ennemyToBeSpawn1, pos2.position, Quaternion.identity,targetParent);
+        Instantiate(ennemyToBeSpawn1, pos3.position, Quaternion.identity,targetParent);
+        Instantiate(ennemyToBeSpawn2, pos4.position, Quaternion.identity,targetParent);
     }
 }

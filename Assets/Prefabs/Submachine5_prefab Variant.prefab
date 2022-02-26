@@ -84,7 +84,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8249402fa39c504aa9b258d78c0d967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
 --- !u!114 &6097179894519201245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5289,6 +5288,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3321071989263849680, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321071989263849680, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321071989263849680, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4260922272162811572, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -5296,6 +5307,10 @@ PrefabInstance:
     - target: {fileID: 4434876453728860463, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4434876453728860463, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5414704896960340269, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
       propertyPath: m_Layer
@@ -5333,6 +5348,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9115700976359617147, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115700976359617147, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115700976359617147, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115700976359617147, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 512fe9f65b16e8949b17e85653f33daa, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f79472d0cdb72c4b9d03e876f0cfd83, type: 3}
 --- !u!4 &1876235473819208909 stripped
