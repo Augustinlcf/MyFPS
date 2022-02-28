@@ -75,8 +75,8 @@ public class WeaponController : MonoBehaviour
         layerMask = LayerMask.GetMask("Target","Default");
         
         // SENSITIVITY
-        normalSensitivity = PlayerController.sensiMouse;
-        normalMovementSpeed = PlayerController.playerSpeed;
+        normalSensitivity = 1;
+        normalMovementSpeed = 30;
         
         // DYNAMIC CROSSHAIR 
         _gameObject = GameObject.Find("Manager");

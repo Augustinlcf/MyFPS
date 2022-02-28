@@ -1225,7 +1225,7 @@ MonoBehaviour:
   walkPointRange: 13
   timeBetweenAttacks: 1.8
   projectile: {fileID: 3933143843967562525, guid: b09492d6050b1a84abe5366ad7f5b058, type: 3}
-  sightRange: 150
+  sightRange: 180
   attackRange: 9
   playerInSightRange: 0
   playerInAttackRange: 0
@@ -1253,7 +1253,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783563462218004}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.2721689
   m_Height: 2.5443377

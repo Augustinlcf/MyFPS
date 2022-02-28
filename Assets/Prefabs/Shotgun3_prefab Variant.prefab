@@ -5224,7 +5224,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!65 &-7364853125494520461
 BoxCollider:
@@ -5287,7 +5287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8249402fa39c504aa9b258d78c0d967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
 --- !u!1 &7414402356211663285
 GameObject:
   m_ObjectHideFlags: 0

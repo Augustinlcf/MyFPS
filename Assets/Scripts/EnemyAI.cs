@@ -5,17 +5,14 @@ using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour
 {
+    private GameObject manager;
     public NavMeshAgent agent;
-
     public Transform player;
-
     public LayerMask whatIsGround, whatIsPlayer;
-
     public float maxhealth;
     public float health;
-
     public Animator animatorAttack;
-
+    private bool isDead;
     [SerializeField] private float damage;
 
     //Patroling
@@ -26,7 +23,6 @@ public class EnemyAI : MonoBehaviour
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public GameObject projectile;
 
     //States
     public float sightRange, attackRange;
@@ -34,6 +30,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        isDead = false;
+        manager = GameObject.Find("Manager");
         health = maxhealth;
         WhatIsThePlayer();
         agent = GetComponent<NavMeshAgent>();
@@ -73,7 +71,7 @@ public class EnemyAI : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y+4, transform.position.z + randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+        if (Physics.Raycast(walkPoint, -transform.up, 10f, whatIsGround))
             walkPointSet = true;
     }
 
@@ -114,15 +112,17 @@ public class EnemyAI : MonoBehaviour
             animatorAttack.SetTrigger("Take Damage");
             health -= damage;
         }
-        if (health <= 0)
+        if (health <= 0 && isDead==false)
         {
+            isDead = true;
             animatorAttack.SetTrigger("Dead");
-            DestroyEnemy(1.3f);
+            DestroyEnemy(1.2f);
         }
     }
 
     private void DestroyEnemy(float delay)
     {
+        manager.GetComponent<Spawner>().currentNumberOfEnemies -= 1;
         Destroy(gameObject, delay);
     }
 
