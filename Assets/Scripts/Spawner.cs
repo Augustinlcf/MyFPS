@@ -11,11 +11,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject wave2;
     [SerializeField] private GameObject wave3;
     [SerializeField] private GameObject victory;
-    // POSITION
+    
+    // ENEMIES POSITIONS
     [SerializeField] private List<Transform> posEnemy1;
     [SerializeField] private List<Transform> posEnemy2;
  
-    // ENEMIES
+    // ENEMIES PREFABS
     [SerializeField] private GameObject enemyToBeSpawn1;
     [SerializeField] private GameObject enemyToBeSpawn2;
     [SerializeField] private Transform enemyParent;
@@ -42,6 +43,7 @@ public class Spawner : MonoBehaviour
         currentWave = 1;
         currentNumberOfEnemies = numberOfEnemies1_Wave1 + numberOfEnemies2_Wave1;
         
+        // On limite le nombre d'ennemies sur la scene
         if (numberOfEnemies1_Wave1 > 20) { numberOfEnemies1_Wave1 = 20; }
         if (numberOfEnemies2_Wave1 > 10) { numberOfEnemies2_Wave1 = 10; }
         
@@ -54,21 +56,21 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (currentNumberOfEnemies <= 0 && currentWave ==1)
+        if (currentNumberOfEnemies <= 0 && currentWave ==1) // Si on vient de finir la wave1
         {
             wave2.SetActive(true);
             currentNumberOfEnemies = numberOfEnemies1_Wave2 + numberOfEnemies2_Wave2;
             currentWave = 2;
             StartCoroutine(SpawnWithDelay(numberOfEnemies1_Wave2, numberOfEnemies2_Wave2,wave2));
         }
-        else if (currentNumberOfEnemies <= 0 && currentWave == 2)
+        else if (currentNumberOfEnemies <= 0 && currentWave == 2) // Si on vient de finir la wave2
         {
             wave3.SetActive(true);
             currentNumberOfEnemies = numberOfEnemies1_Wave3 + numberOfEnemies2_Wave3;
             currentWave = 3;
             StartCoroutine(SpawnWithDelay(numberOfEnemies1_Wave3, numberOfEnemies2_Wave3,wave3));
         }
-        else if (currentNumberOfEnemies <= 0 && currentWave == 3)
+        else if (currentNumberOfEnemies <= 0 && currentWave == 3) // Si on vient de finir la wave3
         {
             victory.SetActive(true);
             currentWave = 0;
@@ -76,6 +78,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    // Appeler lors de l'appui sur START
     public void StartSpawningWave1()
     {
         //WAVE1
@@ -112,5 +115,6 @@ public class Spawner : MonoBehaviour
         canvas.SetActive(false);
         manager.GetComponent<Restart>().RestartGame();
     }
+
     
 }

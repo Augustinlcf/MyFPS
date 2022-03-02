@@ -11,8 +11,11 @@ public class CollisionDestroy : MonoBehaviour
     private int bulletDamage;
     private void Start()
     {
+        // INITIALISATION
         bulletDamage = StartGame.weaponData.bulletDamage;
         bulletParent = GameObject.Find("BulletParent");
+        
+        // si la balle n'a rien touché on la détruit après 5sec
         Destroy(this.gameObject,4);
     }
     private void OnCollisionEnter(Collision collision)
@@ -26,16 +29,15 @@ public class CollisionDestroy : MonoBehaviour
         }
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Target"))
         {
-            //hit.rigidbody.AddForce(-hit.normal * hitForce);
             collision.collider.gameObject.GetComponent<EnemyAI>().TakeDamage(bulletDamage);
         }
         
-        
-        GameObject.Destroy(gameObject);
         Instantiate(explosion, 
             transform.position, 
             Quaternion.identity,
             bulletParent.transform);
+        
+        Destroy(gameObject);
         
     }
     

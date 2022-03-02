@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Attached on camera weapon
 public class Recoil : MonoBehaviour
 {
     //Rotations
@@ -26,12 +27,16 @@ public class Recoil : MonoBehaviour
   
     void Update()
     {
-        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
+        // L'arme cherche à se restabiliser à chaque frame
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.fixedDeltaTime);
+        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
+        
+        // L'arme et la camera subissent le recul
         transform.localRotation = Quaternion.Euler(currentRotation);
         weaponHolder.transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
+    // Appeler à chaque tir
     public void RecoilFire()
     {
         targetRotation += new Vector3(recoilX,

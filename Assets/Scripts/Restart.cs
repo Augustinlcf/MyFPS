@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Restart : MonoBehaviour
 {
-    // OBJECTS TO BE DELETED
+    // OBJECTS TO BE DELETED (THE CHILDS)
     [SerializeField] private GameObject targetParent;
     [SerializeField] private GameObject bulletParent;
+    
+    // OBJECTS TO BE DELETED 
     private Transform player;
     
     // OBJECTS TO BE DISABLED/ENABLED
@@ -25,20 +27,11 @@ public class Restart : MonoBehaviour
     [SerializeField] private GameObject canvasMenuStart;
     [SerializeField] private GameObject canvasMenuBack;
     [SerializeField] private GameObject canvasMenuRestart;
+    [SerializeField] private GameObject canvasDefeat;
     [SerializeField] private Camera cameraRotation;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    [SerializeField] private AudioSource audioSource;
+    
     public void RestartGame()
     {
         WhatIsThePlayer();
@@ -74,8 +67,10 @@ public class Restart : MonoBehaviour
         canvasMenuRestart.SetActive(true);
 
         cameraRotation.enabled = true;
+        
+        // PLAY MUSIC MENU
+        audioSource.Play();
     }
-    
     private void WhatIsThePlayer()
     {
         if (StartGame.weaponData.weaponName == "Sniper")
@@ -90,5 +85,10 @@ public class Restart : MonoBehaviour
         {
             player = GameObject.Find("Shotgun3_prefab Variant(Clone)").transform;
         }
+    }
+
+    public void Death()
+    {
+        canvasDefeat.SetActive(true);
     }
 }

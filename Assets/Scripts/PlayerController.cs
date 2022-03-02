@@ -11,12 +11,12 @@ public class PlayerController : MonoBehaviour
     private float pitch = 0f;
 
     private GameObject manager;
+
     
-    // HEALTHBAR
+    // HEALTH
     public static float health;
     public static float maxHealth = 300;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         manager = GameObject.Find("Manager");
@@ -25,8 +25,7 @@ public class PlayerController : MonoBehaviour
         playerSpeed = 30;
         sensiMouse = 1;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         Deplacer();
@@ -61,8 +60,10 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
+            manager.GetComponent<Restart>().Death();
             manager.GetComponent<Restart>().RestartGame();
         }
     }
     
+
 }

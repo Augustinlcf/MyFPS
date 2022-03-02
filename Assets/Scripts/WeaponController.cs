@@ -5,14 +5,16 @@ using System.Security.Cryptography;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-//using Random = System.Random;
-
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject impactBullet;
     [SerializeField] private ParticleSystem muzzleFlash;
+    
+    // SOUND
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip audioTir;
     
     public GameObject currentWeapon;
     private Transform currentCameraPosition;
@@ -51,7 +53,7 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
-        // INITIALISATION
+        // Collect information from scriptable objects
         aimingSpeed = StartGame.weaponData.aimingSpeed;
         bulletSpeed = StartGame.weaponData.bulletSpeed;
         bulletDamage = StartGame.weaponData.bulletDamage;
@@ -67,6 +69,9 @@ public class WeaponController : MonoBehaviour
         
         // RECOIL
         recoilScript = transform.Find("Main Camera").GetComponent<Recoil>();
+        
+        // AUDIO
+        audioSource = GetComponent<AudioSource>();
         
         // FIELD OF VIEW
         fpsCam = GetComponentInChildren<Camera>();
@@ -84,9 +89,10 @@ public class WeaponController : MonoBehaviour
         
         // CROSSHAIR / SCOPE
         reticule = GameObject.Find("Reticule");
+        reticule.SetActive(true);
         scopeOverlay = GameObject.Find("CanvasSniperOverlay");
         scopeOverlay.SetActive(false);
-        reticule.SetActive(true);
+        
 
         bulletParent = GameObject.Find("BulletParent");
         
@@ -116,6 +122,7 @@ public class WeaponController : MonoBehaviour
                 {
                     nextFire = Time.time + rateOfFire;
                     
+                    audioSource.PlayOneShot(audioTir);
                     recoilScript.RecoilFire();
                     muzzleFlash.Play();
                     currentBulletinMagazine--;
@@ -141,7 +148,7 @@ public class WeaponController : MonoBehaviour
 
                         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Target"))
                         {
-                            hit.rigidbody.AddForce(-hit.normal * hitForce);
+                            //hit.rigidbody.AddForce(-hit.normal * hitForce);
                             hit.collider.gameObject.GetComponent<EnemyAI>().TakeDamage(bulletDamage);
                         }
                       
@@ -155,6 +162,7 @@ public class WeaponController : MonoBehaviour
                 {
                     nextFire = Time.time + rateOfFire;
                     
+                    audioSource.PlayOneShot(audioTir);
                     animator.SetBool("isFire",true);
                     recoilScript.RecoilFire();
                     muzzleFlash.Play();
@@ -195,6 +203,7 @@ public class WeaponController : MonoBehaviour
                 {
                     nextFire = Time.time + rateOfFire;
                     
+                    audioSource.PlayOneShot(audioTir);
                     animator.SetBool("isFire",true);
                     recoilScript.RecoilFire();
                     muzzleFlash.Play();

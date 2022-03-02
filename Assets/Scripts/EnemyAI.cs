@@ -58,14 +58,14 @@ public class EnemyAI : MonoBehaviour
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        //Walkpoint reached
+        //Walkpoint est atteint
         if (distanceToWalkPoint.magnitude < 1f)
             walkPointSet = false;
     }
 
     private void SearchWalkPoint()
     {
-        //Calculate random point in range
+        // Calcul un point random dans la range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
@@ -85,11 +85,12 @@ public class EnemyAI : MonoBehaviour
     private void AttackPlayer()
     {
         animatorAttack.SetBool("Walk Forward",false);
-        //Make sure enemy doesn't move
+       
         agent.SetDestination(transform.position);
+        
+        // Quand l'ennemi attaque, il regarde dans la direction du joueur
         Quaternion targetRotation = Quaternion.LookRotation(player.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 4);
-        //transform.LookAt(player,Vector3.up);
 
         if (!alreadyAttacked)
         {
@@ -99,7 +100,6 @@ public class EnemyAI : MonoBehaviour
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
-
     private void ResetAttack()
     {
         alreadyAttacked = false;
@@ -128,6 +128,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        // Affiche les distances d'attaque et de vue
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
